@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <title>二水远程 · 一排四列 · 主播工具页</title>
+    <!-- Font Awesome 6 (免费) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1f2a3f;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* 主容器 */
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            max-width: 1300px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2rem 2rem;
+        }
+
+        /* 头部区域 - 居中 */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #f0f5fa;
+            padding-bottom: 1.5rem;
+        }
+
+        .title-area h1 {
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: #0f1a2f;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 0.3rem;
+        }
+
+        .title-area .sub {
+            font-size: 1.2rem;
+            color: #6a7b96;
+            font-weight: 400;
+        }
+
+        /* 主播信息区域 - 放在标题下面，居中 */
+        .host-section {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            padding: 0.5rem 0;
+        }
+
+        .host-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1.1rem;
+            background: #f5f9ff;
+            padding: 0.4rem 1.2rem 0.4rem 0.8rem;
+            border-radius: 50px;
+            border: 1px solid #e0ebf5;
+            box-shadow: 0 2px 6px rgba(0, 30, 60, 0.03);
+        }
+
+        .host-item i {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+
+        .host-item .label {
+            color: #476788;
+            font-weight: 500;
+            margin-left: 0.2rem;
+        }
+
+        .host-item .value {
+            color: #0f2b45;
+            font-weight: 600;
+            background: white;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            border: 1px solid #d4e2f0;
+        }
+
+        .host-item .value.wechat {
+            color: #1f7b4d;
+            border-color: #b8decb;
+            background: #f0faf5;
+        }
+
+        .host-item .value.douyin {
+            color: #c92e2e;
+            border-color: #fccfcf;
+            background: #fff4f4;
+        }
+
+        /* 卡片容器 - 使用flex一行四列，自动换行 */
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin: 2.5rem 0 3rem 0;
+        }
+
+        /* 卡片 - 固定宽度，确保一行四个（在1300px容器内正好） */
+        .card {
+            width: 280px;
+            background: #ffffff;
+            border-radius: 32px;
+            padding: 2rem 1.5rem 1.8rem 1.5rem;
+            border: 1px solid #eef3f9;
+            box-shadow: 0 20px 30px -15px rgba(0, 25, 50, 0.06);
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #cddeef;
+            box-shadow: 0 28px 35px -18px rgba(30, 90, 150, 0.15);
+        }
+
+        /* 图标区域 */
+        .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.2rem;
+            font-size: 3rem;
+        }
+
+        .todesk-bg {
+            background: #e5eeff;
+            color: #2563eb;
+        }
+
+        .sun-bg {
+            background: #fff1e0;
+            color: #d97706;
+        }
+
+        .anydesk-bg {
+            background: #ffe5e5;
+            color: #d13232;
+        }
+
+        .uu-bg {
+            background: #eae5ff;
+            color: #5f3dc3;
+        }
+
+        /* 标题行 */
+        .title-section {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .title-section h2 {
+            font-size: 1.9rem;
+            font-weight: 650;
+            color: #0f1f35;
+        }
+
+        /* 推荐标签 - 只在ToDesk保留 */
+        .badge {
+            background: #fff0f0;
+            color: #b91c1c;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            border: 1px solid #ffcdcd;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            letter-spacing: 0.3px;
+        }
+
+        .badge i {
+            font-size: 0.7rem;
+            color: #b91c1c;
+        }
+
+        /* 描述列表 */
+        .feature-list {
+            flex: 1;
+            margin-bottom: 1.8rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin-bottom: 0.8rem;
+            color: #314a6b;
+            font-size: 0.98rem;
+        }
+
+        .feature-item i {
+            width: 1.4rem;
+            color: #577a9e;
+            font-size: 1rem;
+        }
+
+        /* 按钮统一样式，各自品牌色 */
+        .btn-todesk, .btn-sun, .btn-anydesk, .btn-uu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 0.7rem 0.8rem;
+            border-radius: 40px;
+            border: none;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .btn-todesk {
+            background: #2563eb;
+            border: 1px solid #1d4ed8;
+            box-shadow: 0 8px 12px -8px rgba(37, 99, 235, 0.4);
+        }
+        .btn-todesk:hover { background: #1d4ed8; }
+
+        .btn-sun {
+            background: #b45309;
+            border: 1px solid #b45309;
+            box-shadow: 0 8px 12px -8px rgba(180, 83, 9, 0.35);
+        }
+        .btn-sun:hover { background: #9b4106; }
+
+        .btn-anydesk {
+            background: #d13232;
+            border: 1px solid #b12323;
+            box-shadow: 0 8px 12px -8px rgba(209, 50, 50, 0.4);
+        }
+        .btn-anydesk:hover { background: #b12323; }
+
+        .btn-uu {
+            background: #5f3dc3;
+            border: 1px solid #4e31a8;
+            box-shadow: 0 8px 12px -8px rgba(95, 61, 195, 0.4);
+        }
+        .btn-uu:hover { background: #4e31a8; }
+
+        .btn-todesk i, .btn-sun i, .btn-anydesk i, .btn-uu i {
+            font-size: 1rem;
+            transition: transform 0.15s;
+        }
+        .btn-todesk:hover i, .btn-sun:hover i, .btn-anydesk:hover i, .btn-uu:hover i {
+            transform: translateY(2px);
+        }
+
+        /* 脚注 */
+        .footer {
+            text-align: center;
+            color: #8e9fb1;
+            font-size: 0.95rem;
+            border-top: 1px dashed #dae3ed;
+            padding-top: 2rem;
+            margin-top: 1rem;
+        }
+
+        /* 移动端优化：当屏幕宽度不足，自动换行，每行显示个数减少 */
+        @media (max-width: 1100px) {
+            .card { width: 260px; }
+        }
+        @media (max-width: 900px) {
+            .card { width: 300px; } /* 太窄时放大一点，变成两列 */
+        }
+        @media (max-width: 750px) {
+            .main { padding: 1.5rem 1.2rem; }
+            .title-area h1 { font-size: 2.6rem; }
+        }
+        @media (max-width: 480px) {
+            .host-item .value { 
+                font-size: 0.9rem; 
+                padding: 0.2rem 0.6rem;
+            }
+            .host-item {
+                flex-wrap: wrap;
+                padding: 0.8rem;
+            }
+            .card { width: 100%; max-width: 350px; } /* 手机上一列 */
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <!-- 头部：二水工具页 - 居中 -->
+        <div class="header">
+            <div class="title-area">
+                <h1>二水工具页</h1>
+                <div class="sub">远程下载 · 主播推荐</div>
+            </div>
+            
+            <!-- 主播联系方式 - 整合在标题下面 -->
+            <div class="host-section">
+                <div class="host-item">
+                    <i class="fab fa-weixin"></i>
+                    <span class="label">微信:</span>
+                    <span class="value wechat">ershui29</span>
+                </div>
+                <div class="host-item">
+                    <i class="fab fa-tiktok"></i>
+                    <span class="label">抖音:</span>
+                    <span class="value douyin">二水远程电脑维修</span>
+                </div>
+                <div class="host-item">
+                    <i class="fab fa-tiktok"></i>
+                    <span class="label">抖音号:</span>
+                    <span class="value">39934659466</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 卡片区 - 四个软件一排 (flex-wrap 实现，宽屏一行四列) -->
+        <div class="card-container">
+            <!-- 1. ToDesk 卡片 - 蓝色，保留推荐标签 -->
+            <div class="card">
+                <div class="icon-wrapper todesk-bg">
+                    <i class="fas fa-desktop"></i>
+                </div>
+                <div class="title-section">
+                    <h2>ToDesk</h2>
+                    <span class="badge"><i class="fas fa-star"></i> 推荐</span>
+                </div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="fas fa-bolt"></i> 毫秒级延迟 · 4K超清
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-mobile-alt"></i> 全平台互通
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i> 金融级加密
+                    </div>
+                </div>
+                <a href="https://www.todesk.com" class="btn-todesk" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-download"></i> 下载 ToDesk
+                </a>
+            </div>
+
+            <!-- 2. 向日葵卡片 - 橙色，无标签 -->
+            <div class="card">
+                <div class="icon-wrapper sun-bg">
+                    <i class="fas fa-sun"></i>
+                </div>
+                <div class="title-section">
+                    <h2>向日葵</h2>
+                </div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="fas fa-globe"></i> 内外网穿透
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-folder-open"></i> 远程文件传输
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-power-off"></i> 远程开机/定时
+                    </div>
+                </div>
+                <a href="https://sunlogin.oray.com" class="btn-sun" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-download"></i> 下载向日葵
+                </a>
+            </div>
+
+            <!-- 3. AnyDesk 卡片 - 红色调，已去掉“流畅”标签 -->
+            <div class="card">
+                <div class="icon-wrapper anydesk-bg">
+                    <i class="fas fa-rocket"></i>
+                </div>
+                <div class="title-section">
+                    <h2>AnyDesk</h2>
+                    <!-- 标签已移除 -->
+                </div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="fas fa-bolt"></i> 极速帧率 · 带宽优化
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-lock-open"></i> 内网穿透 / 直连
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-clipboard"></i> 双向剪贴板
+                    </div>
+                </div>
+                <a href="https://anydesk.com" class="btn-anydesk" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-download"></i> 下载 AnyDesk
+                </a>
+            </div>
+
+            <!-- 4. UU远程桌面 卡片 - 蓝紫色调，无标签 -->
+            <div class="card">
+                <div class="icon-wrapper uu-bg">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <div class="title-section">
+                    <h2>UU远程桌面</h2>
+                </div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <i class="fas fa-globe"></i> 全球节点 · 低延迟
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-microphone"></i> 语音通话 · 协助
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-tv"></i> 手机/PC一键互联
+                    </div>
+                </div>
+                <a href="https://uu.163.com" class="btn-uu" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-download"></i> 下载 UU远程
+                </a>
+            </div>
+        </div>
+
+        <!-- 底部装饰 -->
+        <div class="footer">
+            <i class="fas fa-download" style="color: #3b82f6; margin-right: 6px;"></i> 主播王二水推荐 · 官方直链放心下
+        </div>
+    </div>
+</body>
+</html>
