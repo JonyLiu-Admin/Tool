@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
-    <title>二水远程 · 一排四列 · 主播工具页</title>
-    <!-- Font Awesome 6 (免费) -->
+    <title>二水电脑维修</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -23,7 +22,6 @@
             line-height: 1.5;
         }
 
-        /* 主容器 */
         .main {
             flex: 1;
             display: flex;
@@ -34,7 +32,6 @@
             padding: 2rem 2rem;
         }
 
-        /* 头部区域 - 居中 */
         .header {
             text-align: center;
             margin-bottom: 2rem;
@@ -57,7 +54,6 @@
             font-weight: 400;
         }
 
-        /* 主播信息区域 - 放在标题下面，居中 */
         .host-section {
             display: flex;
             flex-wrap: wrap;
@@ -119,7 +115,6 @@
             background: #fff4f4;
         }
 
-        /* 卡片容器 - 使用flex一行四列，自动换行 */
         .card-container {
             display: flex;
             flex-wrap: wrap;
@@ -128,7 +123,6 @@
             margin: 2.5rem 0 3rem 0;
         }
 
-        /* 卡片 - 固定宽度，确保一行四个（在1300px容器内正好） */
         .card {
             width: 280px;
             background: #ffffff;
@@ -147,7 +141,6 @@
             box-shadow: 0 28px 35px -18px rgba(30, 90, 150, 0.15);
         }
 
-        /* 图标区域 */
         .icon-wrapper {
             width: 80px;
             height: 80px;
@@ -194,7 +187,6 @@
             color: #0f1f35;
         }
 
-        /* 推荐标签 - 只在ToDesk保留 */
         .badge {
             background: #fff0f0;
             color: #b91c1c;
@@ -214,7 +206,6 @@
             color: #b91c1c;
         }
 
-        /* 描述列表 */
         .feature-list {
             flex: 1;
             margin-bottom: 1.8rem;
@@ -235,7 +226,6 @@
             font-size: 1rem;
         }
 
-        /* 按钮统一样式，各自品牌色 */
         .btn-todesk, .btn-sun, .btn-anydesk, .btn-uu {
             display: flex;
             align-items: center;
@@ -288,7 +278,6 @@
             transform: translateY(2px);
         }
 
-        /* 脚注 */
         .footer {
             text-align: center;
             color: #8e9fb1;
@@ -298,12 +287,11 @@
             margin-top: 1rem;
         }
 
-        /* 移动端优化：当屏幕宽度不足，自动换行，每行显示个数减少 */
         @media (max-width: 1100px) {
             .card { width: 260px; }
         }
         @media (max-width: 900px) {
-            .card { width: 300px; } /* 太窄时放大一点，变成两列 */
+            .card { width: 300px; }
         }
         @media (max-width: 750px) {
             .main { padding: 1.5rem 1.2rem; }
@@ -318,20 +306,18 @@
                 flex-wrap: wrap;
                 padding: 0.8rem;
             }
-            .card { width: 100%; max-width: 350px; } /* 手机上一列 */
+            .card { width: 100%; max-width: 350px; }
         }
     </style>
 </head>
 <body>
     <div class="main">
-        <!-- 头部：二水工具页 - 居中 -->
         <div class="header">
             <div class="title-area">
                 <h1>二水工具页</h1>
                 <div class="sub">远程下载 · 主播推荐</div>
             </div>
             
-            <!-- 主播联系方式 - 整合在标题下面 -->
             <div class="host-section">
                 <div class="host-item">
                     <i class="fab fa-weixin"></i>
@@ -351,9 +337,7 @@
             </div>
         </div>
 
-        <!-- 卡片区 - 四个软件一排 (flex-wrap 实现，宽屏一行四列) -->
         <div class="card-container">
-            <!-- 1. ToDesk 卡片 - 蓝色，保留推荐标签 -->
             <div class="card">
                 <div class="icon-wrapper todesk-bg">
                     <i class="fas fa-desktop"></i>
@@ -378,7 +362,6 @@
                 </a>
             </div>
 
-            <!-- 2. 向日葵卡片 - 橙色，无标签 -->
             <div class="card">
                 <div class="icon-wrapper sun-bg">
                     <i class="fas fa-sun"></i>
@@ -402,14 +385,12 @@
                 </a>
             </div>
 
-            <!-- 3. AnyDesk 卡片 - 红色调，已去掉“流畅”标签 -->
             <div class="card">
                 <div class="icon-wrapper anydesk-bg">
                     <i class="fas fa-rocket"></i>
                 </div>
                 <div class="title-section">
                     <h2>AnyDesk</h2>
-                    <!-- 标签已移除 -->
                 </div>
                 <div class="feature-list">
                     <div class="feature-item">
@@ -427,7 +408,6 @@
                 </a>
             </div>
 
-            <!-- 4. UU远程桌面 卡片 - 蓝紫色调，无标签 -->
             <div class="card">
                 <div class="icon-wrapper uu-bg">
                     <i class="fas fa-gamepad"></i>
@@ -452,7 +432,6 @@
             </div>
         </div>
 
-        <!-- 底部装饰 -->
         <div class="footer">
             <i class="fas fa-download" style="color: #3b82f6; margin-right: 6px;"></i> 主播王二水推荐 · 官方直链放心下
         </div>
